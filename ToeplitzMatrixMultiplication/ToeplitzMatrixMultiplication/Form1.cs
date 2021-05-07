@@ -18,6 +18,11 @@ namespace ToeplitzMatrixMultiplication
             InitializeComponent();
         }
 
+        private int[,] toeplitzMatriz;
+        private int[] toeplitzVector;
+
+        private int[] result;
+
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -55,5 +60,21 @@ namespace ToeplitzMatrixMultiplication
             
         }
 
+        private void startComputationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void downloadResultToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(result == null || result.Length == 0)
+            {
+                throw new Exception("error");
+            }
+            else
+            {
+
+            }
+        }
     }
 }
