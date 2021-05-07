@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToeplitzMatrixMultiplication", "ToeplitzMatrixMultiplication\ToeplitzMatrixMultiplication.csproj", "{3CDA569A-70F0-4995-84F1-9F8DB95467C1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3CDA569A-70F0-4995-84F1-9F8DB95467C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CDA569A-70F0-4995-84F1-9F8DB95467C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CDA569A-70F0-4995-84F1-9F8DB95467C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CDA569A-70F0-4995-84F1-9F8DB95467C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A05EB4A4-F124-48F8-80C9-16E8CC524B1B}
+	EndGlobalSection
+EndGlobal
