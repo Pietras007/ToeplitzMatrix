@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,5 +17,43 @@ namespace ToeplitzMatrixMultiplication
         {
             InitializeComponent();
         }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Text files|*.txt";
+            openFileDialog.Title = "Select a Text File";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                LoadFile(openFileDialog.FileName);
+            }
+        }
+
+        private void LoadFile(string path)
+        {
+            List<int> read = new List<int>();
+            try
+            {
+                using (StreamReader stream = new StreamReader(path))
+                {
+                    string line;
+                    while ((line = stream.ReadLine()) != null)
+                    {
+                        foreach (var word in line.Split(','))
+                        {
+                            int numer;
+                            Int32.TryParse(word, out numer);
+                            read.Add(numer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The file could not be read: " + ex.Message);
+            }
+            
+        }
+
     }
 }
