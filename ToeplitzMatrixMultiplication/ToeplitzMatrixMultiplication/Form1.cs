@@ -62,7 +62,7 @@ namespace ToeplitzMatrixMultiplication
 
         private void startComputationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            result = ToeplitzMultiplication.Compute(toeplitzMatriz, toeplitzVector);
         }
 
         private void downloadResultToolStripMenuItem_Click(object sender, EventArgs e)
