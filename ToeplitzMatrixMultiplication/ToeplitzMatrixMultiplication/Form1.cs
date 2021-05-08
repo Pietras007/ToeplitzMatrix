@@ -24,7 +24,7 @@ namespace ToeplitzMatrixMultiplication
         private float[,] toeplitzMatriz;
         private float[] toeplitzVector;
 
-        private float[] result;
+        private Complex[] result;
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -39,20 +39,7 @@ namespace ToeplitzMatrixMultiplication
 
         private void LoadFile(string path)
         {
-            //toeplitzMatriz = new int[,]
-            //{
-            //    { 7, 11, 5, 6 },
-            //    { 3, 7, 11, 5 },
-            //    { 8, 3, 7, 11},
-            //    { 1, 8, 3, 7 }
-            //};
-
-            //toeplitzVector = new int[]
-            //{
-            //    1,2,3,4
-            //};
-
-            /*List<int> read = new List<int>();
+            List<int> read = new List<int>();
             try
             {
                 using (StreamReader stream = new StreamReader(path))
@@ -72,8 +59,7 @@ namespace ToeplitzMatrixMultiplication
             catch (Exception ex)
             {
                 MessageBox.Show("The file could not be read: " + ex.Message);
-            }*/
-
+            }
         }
 
         private float[] MultiplyMatrixAndVector(float[,] mtx, float[] vec)
@@ -91,13 +77,13 @@ namespace ToeplitzMatrixMultiplication
             return result;
         }
 
-        private float[,] GenerateToeplitzMatrix(int n)
+        private (float[,], float[]) GenerateToeplitzMatrix(int n)
         {
             float[] cMtx = new float[2 * n - 1];
             float[,] result = new float[n, n];
             for (int i = 0; i < 2 * n - 1; i++)
             {
-                cMtx[i] = random.Next(1, 1000);
+                cMtx[i] = random.Next(1, 30);
             }
 
             for (int i = 0; i < n; i++)
@@ -108,7 +94,7 @@ namespace ToeplitzMatrixMultiplication
                 }
             }
 
-            return result;
+            return (result,cMtx);
         }
 
         private float[] GenerateToeplitzVector(int n)
@@ -116,7 +102,7 @@ namespace ToeplitzMatrixMultiplication
             float[] result = new float[n];
             for (int i = 0; i < n; i++)
             {
-                result[i] = random.Next(1, 1000);
+                result[i] = random.Next(1, 30);
             }
 
             return result;
@@ -143,15 +129,15 @@ namespace ToeplitzMatrixMultiplication
         {
             //List<int[,]> toeplitzMatrices = new List<int[,]>();
             //List<int[]> vertices = new List<int[]>();
-            for(int i=1;i<100;i++)
+            for(int i=4;i<20000;i*=2)
             {
-                var mtx = GenerateToeplitzMatrix(i * 10);
-                var v = GenerateToeplitzVector(i * 10);
-                var res = MultiplyMatrixAndVector(mtx, v);
-                var res2 = ToeplitzMultiplication.Compute(mtx, v);
+                var mtx = GenerateToeplitzMatrix(i);
+                var v = GenerateToeplitzVector(i);
+                var res = MultiplyMatrixAndVector(mtx.Item1, v);
+                var res2 = ToeplitzMultiplication.Compute(mtx.Item1, v);
                 for(int j=0;j<res.Length;j++)
                 {
-                    if(res[j] != res2[j])
+                    if(res[j] != res2[j].Magnitude)
                     {
                         int x = 69;
                     }
@@ -161,8 +147,6 @@ namespace ToeplitzMatrixMultiplication
                     }
                 }
             }
-
-
         }
     }
 }
