@@ -45,16 +45,47 @@ namespace ToeplitzMatrixMultiplication
                 using (StreamReader stream = new StreamReader(path))
                 {
                     string line;
+                    bool start = true;
+                    int idx = 0;
+                    int len = -1;
                     while ((line = stream.ReadLine()) != null)
                     {
-                        foreach (var word in line.Split(','))
+                        if(start)
                         {
-                            int numer;
-                            Int32.TryParse(word, out numer);
-                            read.Add(numer);
+                            start = false;
+                            len = line.Split(',').Length;
+                            toeplitzMatriz = new float[len, len];
+                            toeplitzVector = new float[len];
                         }
+
+                        if (line.Contains(','))
+                        {
+                            var numbers = line.Split(',');
+                            int i = 0;
+
+                            if (idx == len + 1)
+                            {
+                                foreach (var n in numbers)
+                                {
+                                    toeplitzVector[i] = float.Parse(numbers[i]);
+                                    i++;
+                                }
+                            }
+                            else
+                            {
+                                foreach (var n in numbers)
+                                {
+                                    toeplitzMatriz[idx, i] = float.Parse(numbers[i]);
+                                    i++;
+                                }
+                            }
+                        }
+
+                        idx++;
                     }
                 }
+
+                MessageBox.Show("Successfully loaded");
             }
             catch (Exception ex)
             {
@@ -94,7 +125,7 @@ namespace ToeplitzMatrixMultiplication
                 }
             }
 
-            return (result,cMtx);
+            return (result, cMtx);
         }
 
         private float[] GenerateToeplitzVector(int n)
@@ -111,17 +142,45 @@ namespace ToeplitzMatrixMultiplication
         private void startComputationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             result = ToeplitzMultiplication.Compute(toeplitzMatriz, toeplitzVector);
+            MessageBox.Show("Successfully computed");
         }
 
         private void downloadResultToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (result == null || result.Length == 0)
-            {
-                throw new Exception("error");
-            }
-            else
-            {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text files|*.txt";
+            saveFileDialog.Title = "Select a Text File";
 
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                SaveFile(saveFileDialog.FileName);
+                MessageBox.Show("Successfully saved");
+            }
+        }
+
+        public void SaveFile(string path)
+        {
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(path))
+                {
+
+                    StringBuilder sb = new StringBuilder(8);
+                    for (int i = 0; i < result.Length/2; i++)
+                    {
+                        sb.Append(result[i].Real);
+                        if (i != result.Length/2 - 1)
+                        {
+                            sb.Append(",");
+                        }
+                    }
+                    sw.WriteLine(sb);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unexpected problem accured: " + ex.Message);
             }
         }
 
@@ -129,15 +188,15 @@ namespace ToeplitzMatrixMultiplication
         {
             //List<int[,]> toeplitzMatrices = new List<int[,]>();
             //List<int[]> vertices = new List<int[]>();
-            for(int i=4;i<20000;i*=2)
+            for (int i = 4; i < 20000; i *= 2)
             {
                 var mtx = GenerateToeplitzMatrix(i);
                 var v = GenerateToeplitzVector(i);
                 var res = MultiplyMatrixAndVector(mtx.Item1, v);
                 var res2 = ToeplitzMultiplication.Compute(mtx.Item1, v);
-                for(int j=0;j<res.Length;j++)
+                for (int j = 0; j < res.Length; j++)
                 {
-                    if(res[j] != res2[j].Magnitude)
+                    if (res[j] != res2[j].Magnitude)
                     {
                         int x = 69;
                     }
