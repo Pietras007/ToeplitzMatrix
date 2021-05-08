@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,10 +19,10 @@ namespace ToeplitzMatrixMultiplication
             InitializeComponent();
         }
 
-        private int[,] toeplitzMatriz;
-        private int[] toeplitzVector;
+        private Complex[,] toeplitzMatriz;
+        private Complex[] toeplitzVector;
 
-        private int[] result;
+        private Complex[] result;
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
