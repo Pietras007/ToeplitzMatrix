@@ -21,10 +21,10 @@ namespace ToeplitzMatrixMultiplication
         }
 
         Random random;
-        private Complex[,] toeplitzMatriz;
-        private Complex[] toeplitzVector;
+        private float[,] toeplitzMatriz;
+        private float[] toeplitzVector;
 
-        private Complex[] result;
+        private float[] result;
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -76,10 +76,10 @@ namespace ToeplitzMatrixMultiplication
 
         }
 
-        private Complex[] MultiplyMatrixAndVector(Complex[,] mtx, Complex[] vec)
+        private float[] MultiplyMatrixAndVector(float[,] mtx, float[] vec)
         {
             int n = vec.Length;
-            Complex[] result = new Complex[n];
+            float[] result = new float[n];
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < n; j++)
@@ -91,10 +91,10 @@ namespace ToeplitzMatrixMultiplication
             return result;
         }
 
-        private Complex[,] GenerateToeplitzMatrix(int n)
+        private float[,] GenerateToeplitzMatrix(int n)
         {
-            Complex[] cMtx = new Complex[2 * n - 1];
-            Complex[,] result = new Complex[n, n];
+            float[] cMtx = new float[2 * n - 1];
+            float[,] result = new float[n, n];
             for (int i = 0; i < 2 * n - 1; i++)
             {
                 cMtx[i] = random.Next(0, int.MaxValue / 100);
@@ -111,12 +111,12 @@ namespace ToeplitzMatrixMultiplication
             return result;
         }
 
-        private Complex[] GenerateToeplitzVector(int n)
+        private float[] GenerateToeplitzVector(int n)
         {
-            Complex[] result = new Complex[n];
+            float[] result = new float[n];
             for (int i = 0; i < n; i++)
             {
-                result[i] = random.Next(0, int.MaxValue / 100);
+                result[i] = random.Next(0, int.MaxValue / 100000000);
             }
 
             return result;
