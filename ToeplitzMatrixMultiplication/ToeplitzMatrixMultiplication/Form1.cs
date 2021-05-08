@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,8 +17,10 @@ namespace ToeplitzMatrixMultiplication
         public Form1()
         {
             InitializeComponent();
+            random = new Random();
         }
 
+        Random random;
         private int[,] toeplitzMatriz;
         private int[] toeplitzVector;
 
@@ -36,7 +39,20 @@ namespace ToeplitzMatrixMultiplication
 
         private void LoadFile(string path)
         {
-            List<int> read = new List<int>();
+            toeplitzMatriz = new int[,]
+            {
+                { 7, 11, 5, 6 },
+                { 3, 7, 11, 5 },
+                { 8, 3, 7, 11},
+                { 1, 8, 3, 7 }
+            };
+
+            toeplitzVector = new int[]
+            {
+                1,2,3,4
+            };
+
+            /*List<int> read = new List<int>();
             try
             {
                 using (StreamReader stream = new StreamReader(path))
@@ -56,8 +72,54 @@ namespace ToeplitzMatrixMultiplication
             catch (Exception ex)
             {
                 MessageBox.Show("The file could not be read: " + ex.Message);
+            }*/
+
+        }
+
+        private int[] MultiplyMatrixAndVector(int[,] mtx, int[] vec)
+        {
+            int n = vec.Length;
+            int[] result = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    result[i] += mtx[i, j] * vec[j];
+                }
             }
-            
+
+            return result;
+        }
+
+        private int[,] GenerateToeplitzMatrix(int n)
+        {
+            int[] cMtx = new int[2 * n - 1];
+            int[,] result = new int[n, n];
+            for (int i = 0; i < 2 * n - 1; i++)
+            {
+                cMtx[i] = random.Next(0, int.MaxValue / 100);
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    result[i, j] = cMtx[n - 1 - i + j];
+                }
+            }
+
+            return result;
+        }
+
+        private int[] GenerateToeplitzVector(int n)
+        {
+            int[] result = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                result[i] = random.Next(0, int.MaxValue / 100);
+            }
+
+            return result;
         }
 
         private void startComputationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -67,7 +129,7 @@ namespace ToeplitzMatrixMultiplication
 
         private void downloadResultToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(result == null || result.Length == 0)
+            if (result == null || result.Length == 0)
             {
                 throw new Exception("error");
             }
@@ -75,6 +137,21 @@ namespace ToeplitzMatrixMultiplication
             {
 
             }
+        }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //List<int[,]> toeplitzMatrices = new List<int[,]>();
+            //List<int[]> vertices = new List<int[]>();
+            for(int i=0;i<100;i++)
+            {
+                var mtx = GenerateToeplitzMatrix(i * 10);
+                var v = GenerateToeplitzVector(i * 10);
+                var res = MultiplyMatrixAndVector(mtx, v);
+                //var res2 =
+            }
+
+
         }
     }
 }

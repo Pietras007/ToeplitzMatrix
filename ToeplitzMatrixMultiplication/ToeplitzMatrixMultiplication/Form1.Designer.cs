@@ -34,6 +34,7 @@ namespace ToeplitzMatrixMultiplication
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startComputationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadResultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +53,8 @@ namespace ToeplitzMatrixMultiplication
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadToolStripMenuItem,
             this.startComputationToolStripMenuItem,
-            this.downloadResultToolStripMenuItem});
+            this.downloadResultToolStripMenuItem,
+            this.testToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -78,6 +80,13 @@ namespace ToeplitzMatrixMultiplication
             this.downloadResultToolStripMenuItem.Text = "Download Result";
             this.downloadResultToolStripMenuItem.Click += new System.EventHandler(this.downloadResultToolStripMenuItem_Click);
             // 
+            // testToolStripMenuItem
+            // 
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.testToolStripMenuItem.Text = "Test";
+            this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -101,6 +110,7 @@ namespace ToeplitzMatrixMultiplication
         private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startComputationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downloadResultToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
     }
 }
 
