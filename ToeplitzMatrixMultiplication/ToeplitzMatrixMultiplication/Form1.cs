@@ -24,7 +24,7 @@ namespace ToeplitzMatrixMultiplication
         private int[,] toeplitzMatriz;
         private int[] toeplitzVector;
 
-        private int[] result;
+        private Complex[] result;
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
