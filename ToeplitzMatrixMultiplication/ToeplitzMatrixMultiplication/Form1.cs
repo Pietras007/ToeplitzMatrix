@@ -206,6 +206,8 @@ namespace ToeplitzMatrixMultiplication
                     }
                 }
             }
+
+            MessageBox.Show("Tested successfully");
         }
     }
 }
