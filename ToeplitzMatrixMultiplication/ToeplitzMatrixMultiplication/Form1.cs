@@ -21,8 +21,8 @@ namespace ToeplitzMatrixMultiplication
         }
 
         Random random;
-        private int[,] toeplitzMatriz;
-        private int[] toeplitzVector;
+        private Complex[,] toeplitzMatriz;
+        private Complex[] toeplitzVector;
 
         private Complex[] result;
 
@@ -39,18 +39,18 @@ namespace ToeplitzMatrixMultiplication
 
         private void LoadFile(string path)
         {
-            toeplitzMatriz = new int[,]
-            {
-                { 7, 11, 5, 6 },
-                { 3, 7, 11, 5 },
-                { 8, 3, 7, 11},
-                { 1, 8, 3, 7 }
-            };
+            //toeplitzMatriz = new int[,]
+            //{
+            //    { 7, 11, 5, 6 },
+            //    { 3, 7, 11, 5 },
+            //    { 8, 3, 7, 11},
+            //    { 1, 8, 3, 7 }
+            //};
 
-            toeplitzVector = new int[]
-            {
-                1,2,3,4
-            };
+            //toeplitzVector = new int[]
+            //{
+            //    1,2,3,4
+            //};
 
             /*List<int> read = new List<int>();
             try
@@ -76,10 +76,10 @@ namespace ToeplitzMatrixMultiplication
 
         }
 
-        private int[] MultiplyMatrixAndVector(int[,] mtx, int[] vec)
+        private Complex[] MultiplyMatrixAndVector(Complex[,] mtx, Complex[] vec)
         {
             int n = vec.Length;
-            int[] result = new int[n];
+            Complex[] result = new Complex[n];
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < n; j++)
@@ -91,10 +91,10 @@ namespace ToeplitzMatrixMultiplication
             return result;
         }
 
-        private int[,] GenerateToeplitzMatrix(int n)
+        private Complex[,] GenerateToeplitzMatrix(int n)
         {
-            int[] cMtx = new int[2 * n - 1];
-            int[,] result = new int[n, n];
+            Complex[] cMtx = new Complex[2 * n - 1];
+            Complex[,] result = new Complex[n, n];
             for (int i = 0; i < 2 * n - 1; i++)
             {
                 cMtx[i] = random.Next(0, int.MaxValue / 100);
@@ -111,9 +111,9 @@ namespace ToeplitzMatrixMultiplication
             return result;
         }
 
-        private int[] GenerateToeplitzVector(int n)
+        private Complex[] GenerateToeplitzVector(int n)
         {
-            int[] result = new int[n];
+            Complex[] result = new Complex[n];
             for (int i = 0; i < n; i++)
             {
                 result[i] = random.Next(0, int.MaxValue / 100);
@@ -143,12 +143,23 @@ namespace ToeplitzMatrixMultiplication
         {
             //List<int[,]> toeplitzMatrices = new List<int[,]>();
             //List<int[]> vertices = new List<int[]>();
-            for(int i=0;i<100;i++)
+            for(int i=1;i<100;i++)
             {
                 var mtx = GenerateToeplitzMatrix(i * 10);
                 var v = GenerateToeplitzVector(i * 10);
                 var res = MultiplyMatrixAndVector(mtx, v);
-                //var res2 =
+                var res2 = ToeplitzMultiplication.Compute(mtx, v);
+                for(int j=0;j<res.Length;j++)
+                {
+                    if(res[j] != res2[j])
+                    {
+                        int x = 69;
+                    }
+                    else
+                    {
+                        int x = 0;
+                    }
+                }
             }
 
 
