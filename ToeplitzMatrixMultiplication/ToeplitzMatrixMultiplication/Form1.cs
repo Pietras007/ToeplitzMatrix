@@ -171,7 +171,7 @@ namespace ToeplitzMatrixMultiplication
                         sb.Append(result[i].Real);
                         if (i != result.Length/2 - 1)
                         {
-                            sb.Append(",");
+                            sb.Append(", ");
                         }
                     }
                     sw.WriteLine(sb);
