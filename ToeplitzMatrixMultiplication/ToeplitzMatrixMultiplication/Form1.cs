@@ -97,7 +97,7 @@ namespace ToeplitzMatrixMultiplication
             float[,] result = new float[n, n];
             for (int i = 0; i < 2 * n - 1; i++)
             {
-                cMtx[i] = random.Next(0, int.MaxValue / 100);
+                cMtx[i] = random.Next(1, 1000);
             }
 
             for (int i = 0; i < n; i++)
@@ -116,7 +116,7 @@ namespace ToeplitzMatrixMultiplication
             float[] result = new float[n];
             for (int i = 0; i < n; i++)
             {
-                result[i] = random.Next(0, int.MaxValue / 100000000);
+                result[i] = random.Next(1, 1000);
             }
 
             return result;
