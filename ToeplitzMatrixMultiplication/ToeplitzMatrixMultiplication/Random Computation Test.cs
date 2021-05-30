@@ -52,6 +52,16 @@ namespace ToeplitzMatrixMultiplication
             label41.Text = "";
             label42.Text = "";
             label43.Text = "";
+            label45.Text = "";
+            label46.Text = "";
+            label47.Text = "";
+            label48.Text = "";
+            label49.Text = "";
+            label50.Text = "";
+            label51.Text = "";
+            label52.Text = "";
+            label53.Text = "";
+            label54.Text = "";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -70,64 +80,80 @@ namespace ToeplitzMatrixMultiplication
                 var mtx = ToeplitzGenerator.GenerateToeplitzMatrix(i, random);
                 var v = ToeplitzGenerator.GenerateToeplitzVector(i, random);
                 DateTime startTimeNlogN = DateTime.UtcNow;
-                var res2 = ToeplitzMultiplication.Compute(mtx.Item1, v);
+                var res2 = ToeplitzMultiplication.Compute(mtx.Item1, v, true);
                 DateTime endTimeNlogN = DateTime.UtcNow;
+
+                DateTime startTimeNlogNLibrary = DateTime.UtcNow;
+                var res3 = ToeplitzMultiplication.Compute(mtx.Item1, v, false);
+                DateTime endTimeNlogNLibrary = DateTime.UtcNow;
+
                 DateTime startTimeNSquare = DateTime.UtcNow;
                 var res = MultiplyMatrixAndVector(mtx.Item1, v);
                 DateTime endTimeNSquare = DateTime.UtcNow;
 
                 double nSquareTime = (endTimeNSquare - startTimeNSquare).TotalMilliseconds;
                 double nLogNTime = (endTimeNlogN - startTimeNlogN).TotalMilliseconds;
+                double nLogNTimeLibrary = (endTimeNlogNLibrary - startTimeNlogNLibrary).TotalMilliseconds;
                 switch (indexer)
                 {
                     case 1:
                         label14.Text = nSquareTime.ToString();
                         label15.Text = nLogNTime.ToString();
+                        label54.Text = nLogNTimeLibrary.ToString();
                         label16.Text = i + "x" + i;
                         break;
                     case 2:
                         label17.Text = nSquareTime.ToString();
                         label18.Text = nLogNTime.ToString();
+                        label53.Text = nLogNTimeLibrary.ToString();
                         label19.Text = i + "x" + i;
                         break;
                     case 3:
                         label20.Text = nSquareTime.ToString();
                         label21.Text = nLogNTime.ToString();
+                        label52.Text = nLogNTimeLibrary.ToString();
                         label22.Text = i + "x" + i;
                         break;
                     case 4:
                         label23.Text = nSquareTime.ToString();
                         label24.Text = nLogNTime.ToString();
+                        label51.Text = nLogNTimeLibrary.ToString();
                         label25.Text = i + "x" + i;
                         break;
                     case 5:
                         label26.Text = nSquareTime.ToString();
                         label27.Text = nLogNTime.ToString();
+                        label50.Text = nLogNTimeLibrary.ToString();
                         label28.Text = i + "x" + i;
                         break;
                     case 6:
                         label29.Text = nSquareTime.ToString();
                         label30.Text = nLogNTime.ToString();
+                        label49.Text = nLogNTimeLibrary.ToString();
                         label31.Text = i + "x" + i;
                         break;
                     case 7:
                         label32.Text = nSquareTime.ToString();
                         label33.Text = nLogNTime.ToString();
+                        label48.Text = nLogNTimeLibrary.ToString();
                         label34.Text = i + "x" + i;
                         break;
                     case 8:
                         label35.Text = nSquareTime.ToString();
                         label36.Text = nLogNTime.ToString();
+                        label47.Text = nLogNTimeLibrary.ToString();
                         label37.Text = i + "x" + i;
                         break;
                     case 9:
                         label38.Text = nSquareTime.ToString();
                         label39.Text = nLogNTime.ToString();
+                        label46.Text = nLogNTimeLibrary.ToString();
                         label40.Text = i + "x" + i;
                         break;
                     case 10:
                         label41.Text = nSquareTime.ToString();
                         label42.Text = nLogNTime.ToString();
+                        label45.Text = nLogNTimeLibrary.ToString();
                         label43.Text = i + "x" + i;
                         break;
                 }
