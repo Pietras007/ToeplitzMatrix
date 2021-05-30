@@ -18,6 +18,7 @@ namespace ToeplitzMatrixMultiplication
         {
             InitializeComponent();
             random = new Random();
+            button3.Enabled = false;
         }
 
         Random random;
@@ -86,6 +87,32 @@ namespace ToeplitzMatrixMultiplication
                 }
 
                 MessageBox.Show("Successfully loaded");
+                float[] a = new float[2 * toeplitzVector.Length];
+
+                int indx = 0;
+                for (int i = 0; i < toeplitzVector.Length; i++)
+                {
+                    a[indx] = toeplitzMatriz[i, 0];
+                    indx++;
+                }
+                a[indx] = toeplitzMatriz[0, 0];
+                indx++;
+
+                for (int i = toeplitzVector.Length - 1; i > 0; i--)
+                {
+                    a[indx] = toeplitzMatriz[0, i];
+                    indx++;
+                }
+
+                foreach(var _a in a)
+                {
+                    listView1.Items.Add(_a.ToString());
+                }
+
+                result = ToeplitzMultiplication.Compute(toeplitzMatriz, toeplitzVector);
+                MessageBox.Show("Successfully computed");
+
+                button3.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -139,25 +166,6 @@ namespace ToeplitzMatrixMultiplication
             return result;
         }
 
-        private void startComputationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            result = ToeplitzMultiplication.Compute(toeplitzMatriz, toeplitzVector);
-            MessageBox.Show("Successfully computed");
-        }
-
-        private void downloadResultToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Text files|*.txt";
-            saveFileDialog.Title = "Select a Text File";
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                SaveFile(saveFileDialog.FileName);
-                MessageBox.Show("Successfully saved");
-            }
-        }
-
         public void SaveFile(string path)
         {
             try
@@ -184,36 +192,37 @@ namespace ToeplitzMatrixMultiplication
             }
         }
 
-        private void testToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //List<int[,]> toeplitzMatrices = new List<int[,]>();
-            //List<int[]> vertices = new List<int[]>();
-            for (int i = 4; i < 20000; i *= 2)
-            {
-                var mtx = GenerateToeplitzMatrix(i);
-                var v = GenerateToeplitzVector(i);
-                var res = MultiplyMatrixAndVector(mtx.Item1, v);
-                var res2 = ToeplitzMultiplication.Compute(mtx.Item1, v);
-                //for (int j = 0; j < res.Length; j++)
-                //{
-                //    if (res[j] != res2[j].Magnitude)
-                //    {
-                //        int x = 69;
-                //    }
-                //    else
-                //    {
-                //        int x = 0;
-                //    }
-                //}
-            }
-
-            MessageBox.Show("Tested successfully");
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             Random_Computation_Test test = new Random_Computation_Test();
             test.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Text files|*.txt";
+            openFileDialog.Title = "Select a Text File";
+            string path = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
+            path = System.IO.Path.GetDirectoryName(path);
+            openFileDialog.InitialDirectory = path;// System.Reflection.Assembly.GetExecutingAssembly().Location; //Directory.SetCurrentDirectory();
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                LoadFile(openFileDialog.FileName);
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text files|*.txt";
+            saveFileDialog.Title = "Select a Text File";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                SaveFile(saveFileDialog.FileName);
+                MessageBox.Show("Successfully saved");
+            }
         }
     }
 }

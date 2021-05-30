@@ -531,7 +531,7 @@ namespace ToeplitzMatrixMultiplication
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Name = "Random_Computation_Test";
-            this.Text = "Random_Computation_Test";
+            this.Text = "Random Computation Test";
             this.ResumeLayout(false);
             this.PerformLayout();
 
