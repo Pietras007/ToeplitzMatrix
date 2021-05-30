@@ -118,6 +118,7 @@ namespace ToeplitzMatrixMultiplication
                     listView2.Items.Add(_v.ToString());
                 }
 
+                var naiveResult = MultiplyMatrixAndVector(toeplitzMatriz, toeplitzVector);
                 result = ToeplitzMultiplication.Compute(toeplitzMatriz, toeplitzVector);
                 for (int i = 0; i < result.Length / 2; i++)
                 {
