@@ -110,12 +110,6 @@
     <Compile Include="Random Computation Test.Designer.cs">
       <DependentUpon>Random Computation Test.cs</DependentUpon>
     </Compile>
-    <Compile Include="Random Numbers Test.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Random Numbers Test.Designer.cs">
-      <DependentUpon>Random Numbers Test.cs</DependentUpon>
-    </Compile>
     <Compile Include="ToeplitzGenerator.cs" />
     <Compile Include="ToeplitzMultiplication.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -135,9 +129,6 @@
     </Compile>
     <EmbeddedResource Include="Random Computation Test.resx">
       <DependentUpon>Random Computation Test.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Random Numbers Test.resx">
-      <DependentUpon>Random Numbers Test.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
