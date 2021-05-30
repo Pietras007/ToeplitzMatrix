@@ -70,7 +70,9 @@
     <Reference Include="NMath, Version=6.2.0.58, Culture=neutral, PublicKeyToken=873235918a322639, processorArchitecture=MSIL">
       <HintPath>..\packages\CenterSpace.NMath.6.2.0.58\lib\net40\NMath.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -108,6 +110,7 @@
     <Compile Include="Random Computation Test.Designer.cs">
       <DependentUpon>Random Computation Test.cs</DependentUpon>
     </Compile>
+    <Compile Include="ToeplitzGenerator.cs" />
     <Compile Include="ToeplitzMultiplication.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
