@@ -194,20 +194,26 @@ namespace ToeplitzMatrixMultiplication
                 var v = GenerateToeplitzVector(i);
                 var res = MultiplyMatrixAndVector(mtx.Item1, v);
                 var res2 = ToeplitzMultiplication.Compute(mtx.Item1, v);
-                for (int j = 0; j < res.Length; j++)
-                {
-                    if (res[j] != res2[j].Magnitude)
-                    {
-                        int x = 69;
-                    }
-                    else
-                    {
-                        int x = 0;
-                    }
-                }
+                //for (int j = 0; j < res.Length; j++)
+                //{
+                //    if (res[j] != res2[j].Magnitude)
+                //    {
+                //        int x = 69;
+                //    }
+                //    else
+                //    {
+                //        int x = 0;
+                //    }
+                //}
             }
 
             MessageBox.Show("Tested successfully");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Random_Computation_Test test = new Random_Computation_Test();
+            test.Show();
         }
     }
 }

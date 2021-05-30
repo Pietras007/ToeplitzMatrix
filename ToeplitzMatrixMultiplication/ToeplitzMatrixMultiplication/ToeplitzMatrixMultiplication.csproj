@@ -88,6 +88,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Random Computation Test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Random Computation Test.Designer.cs">
+      <DependentUpon>Random Computation Test.cs</DependentUpon>
+    </Compile>
     <Compile Include="ToeplitzMultiplication.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -101,6 +107,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Random Computation Test.resx">
+      <DependentUpon>Random Computation Test.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

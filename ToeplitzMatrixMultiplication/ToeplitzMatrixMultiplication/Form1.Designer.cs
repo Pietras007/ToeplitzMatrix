@@ -35,6 +35,7 @@ namespace ToeplitzMatrixMultiplication
             this.startComputationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadResultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,36 +63,47 @@ namespace ToeplitzMatrixMultiplication
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // startComputationToolStripMenuItem
             // 
             this.startComputationToolStripMenuItem.Name = "startComputationToolStripMenuItem";
-            this.startComputationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.startComputationToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.startComputationToolStripMenuItem.Text = "Start Computation";
             this.startComputationToolStripMenuItem.Click += new System.EventHandler(this.startComputationToolStripMenuItem_Click);
             // 
             // downloadResultToolStripMenuItem
             // 
             this.downloadResultToolStripMenuItem.Name = "downloadResultToolStripMenuItem";
-            this.downloadResultToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.downloadResultToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.downloadResultToolStripMenuItem.Text = "Download Result";
             this.downloadResultToolStripMenuItem.Click += new System.EventHandler(this.downloadResultToolStripMenuItem_Click);
             // 
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.testToolStripMenuItem.Text = "Test";
             this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 37);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(113, 31);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Run Test";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -111,6 +123,7 @@ namespace ToeplitzMatrixMultiplication
         private System.Windows.Forms.ToolStripMenuItem startComputationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downloadResultToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
     }
 }
 
