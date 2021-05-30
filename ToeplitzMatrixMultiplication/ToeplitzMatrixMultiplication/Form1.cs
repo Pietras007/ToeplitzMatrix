@@ -24,6 +24,7 @@ namespace ToeplitzMatrixMultiplication
         Random random;
         private float[,] toeplitzMatriz;
         private float[] toeplitzVector;
+        private string fileName;
 
         private Complex[] result;
 
@@ -222,6 +223,7 @@ namespace ToeplitzMatrixMultiplication
             openFileDialog.InitialDirectory = path;// System.Reflection.Assembly.GetExecutingAssembly().Location; //Directory.SetCurrentDirectory();
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
+                fileName = openFileDialog.FileName;
                 LoadFile(openFileDialog.FileName);
             }
         }
@@ -230,7 +232,7 @@ namespace ToeplitzMatrixMultiplication
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text files|*.txt";
-            saveFileDialog.Title = "Select a Text File";
+            saveFileDialog.FileName = "Result for: " + fileName.Split('\\')[fileName.Split('\\').Length - 1];
             string path = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
             path = System.IO.Path.GetDirectoryName(path);
             saveFileDialog.InitialDirectory = path;
@@ -240,6 +242,12 @@ namespace ToeplitzMatrixMultiplication
                 SaveFile(saveFileDialog.FileName);
                 MessageBox.Show("Successfully saved");
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            GenerateFile generateFile = new GenerateFile();
+            generateFile.Show();
         }
     }
 }
