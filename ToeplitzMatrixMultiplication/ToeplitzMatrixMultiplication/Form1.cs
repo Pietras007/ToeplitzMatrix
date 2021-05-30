@@ -233,7 +233,7 @@ namespace ToeplitzMatrixMultiplication
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text files|*.txt";
-            saveFileDialog.FileName = "Result for: " + fileName.Split('\\')[fileName.Split('\\').Length - 1];
+            saveFileDialog.FileName = "Result for " + fileName.Split('\\')[fileName.Split('\\').Length - 1];
             string path = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
             path = System.IO.Path.GetDirectoryName(path);
             saveFileDialog.InitialDirectory = path;

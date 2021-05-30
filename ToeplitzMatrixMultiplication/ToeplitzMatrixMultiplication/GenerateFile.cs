@@ -55,7 +55,7 @@ namespace ToeplitzMatrixMultiplication
             DateTime dateTime = DateTime.Now;
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text files|*.txt";
-            saveFileDialog.FileName = "Toeplitz example";// + dateTime.ToString();
+            saveFileDialog.FileName = "Toeplitz example generated";
             string path = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
             path = System.IO.Path.GetDirectoryName(path);
             saveFileDialog.InitialDirectory = path;
