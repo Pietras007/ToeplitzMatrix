@@ -41,6 +41,10 @@ namespace ToeplitzMatrixMultiplication
         private void LoadFile(string path)
         {
             List<int> read = new List<int>();
+            listView1.Items.Clear();
+            listView2.Items.Clear();
+            listView3.Items.Clear();
+
             try
             {
                 using (StreamReader stream = new StreamReader(path))
@@ -51,7 +55,7 @@ namespace ToeplitzMatrixMultiplication
                     int len = -1;
                     while ((line = stream.ReadLine()) != null)
                     {
-                        if(start)
+                        if (start)
                         {
                             start = false;
                             len = line.Split(',').Length;
@@ -104,12 +108,22 @@ namespace ToeplitzMatrixMultiplication
                     indx++;
                 }
 
-                foreach(var _a in a)
+                foreach (var _a in a)
                 {
                     listView1.Items.Add(_a.ToString());
                 }
 
+                foreach (var _v in toeplitzVector)
+                {
+                    listView2.Items.Add(_v.ToString());
+                }
+
                 result = ToeplitzMultiplication.Compute(toeplitzMatriz, toeplitzVector);
+                for (int i = 0; i < result.Length / 2; i++)
+                {
+                    listView3.Items.Add(result[i].Real.ToString());
+                }
+
                 MessageBox.Show("Successfully computed");
 
                 button3.Enabled = true;
@@ -174,10 +188,10 @@ namespace ToeplitzMatrixMultiplication
                 {
 
                     StringBuilder sb = new StringBuilder(8);
-                    for (int i = 0; i < result.Length/2; i++)
+                    for (int i = 0; i < result.Length / 2; i++)
                     {
                         sb.Append(result[i].Real);
-                        if (i != result.Length/2 - 1)
+                        if (i != result.Length / 2 - 1)
                         {
                             sb.Append(", ");
                         }
@@ -217,6 +231,9 @@ namespace ToeplitzMatrixMultiplication
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text files|*.txt";
             saveFileDialog.Title = "Select a Text File";
+            string path = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
+            path = System.IO.Path.GetDirectoryName(path);
+            saveFileDialog.InitialDirectory = path;
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
