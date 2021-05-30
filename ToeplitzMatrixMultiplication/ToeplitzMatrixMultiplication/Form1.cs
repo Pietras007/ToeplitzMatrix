@@ -253,7 +253,8 @@ namespace ToeplitzMatrixMultiplication
 
         private void button5_Click(object sender, EventArgs e)
         {
-
+            Random_Numbers_Test test = new Random_Numbers_Test();
+            test.Show();
         }
     }
 }
