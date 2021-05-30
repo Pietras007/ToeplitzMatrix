@@ -10,103 +10,15 @@ namespace ToeplitzMatrixMultiplication
 {
     public static class ToeplitzMultiplication
     {
-        public static float[] Compute2(float[,] matrix, float[] vec)
-        {
-            int n = vec.Length;
-
-            int pow = 1;
-            while (pow < 2 * n + 2)
-                pow *= 2;
-
-            //calculation of vector representing circulation matrix
-            float[] a, x;
-            a = new float[pow];
-            x = new float[pow];
-
-
-            for (int i = 0; i < n; i++)
-            {
-                a[i] = matrix[0, i];
-            }
-            for (int i = n - 1; i >= 0; i--)
-            {
-                a[n + i] = matrix[i, 0];
-            }
-
-            for (int i = 0; i < n; i++)
-            {
-                x[i] = vec[i];
-            }
-            float[] res;
-            float[] u;
-            float[] v = a;
-            Fourier.ForwardReal(v, v.Length - 2, FourierOptions.NoScaling);
-            float[] y = x;
-            Fourier.ForwardReal(y, y.Length - 2, FourierOptions.NoScaling);
-            u = v.Zip(y, (a1, a2) => a1 * a2).ToArray();
-            Fourier.InverseReal(u, u.Length - 2, FourierOptions.NoScaling);
-            res = new float[vec.Length];
-
-            for (int i = 0; i < vec.Length; i++)
-                res[i] = u[i];
-            return res;
-        }
-
-        public static float[] Compute3(float[,] matrix, float[] vec)
-        {
-            int n = vec.Length;
-
-            //calculation of vector representing circulation matrix
-            float[] a, x;
-            a = new float[2 * n + 2];
-            x = new float[2 * n + 2];
-
-            int idx = 0;
-            for (int i = 0; i < n; i++)
-            {
-                a[idx] = matrix[i, 0];
-                idx++;
-            }
-            a[idx] = matrix[0, 0];
-            idx++;
-
-            for (int i = n - 1; i > 0; i--)
-            {
-                a[idx] = matrix[0, i];
-                idx++;
-            }
-
-            for (int i = 0; i < n; i++)
-            {
-                x[i] = vec[i];
-            }
-
-            float[] res;
-            float[] u;
-            float[] v = a;
-            Fourier.ForwardReal(v, v.Length - 2);
-            float[] y = x;
-            Fourier.ForwardReal(y, y.Length - 2);
-            u = v.Zip(y, (a1, a2) => a1 * a2).ToArray();
-            Fourier.InverseReal(u, u.Length - 2);
-            res = new float[vec.Length];
-
-            for (int i = 0; i < vec.Length; i++)
-                res[i] = u[i];
-            return res;
-        }
-
         public static Complex[] Compute(float[,] matrix, float[] vec)
         {
-            int n = vec.Length;
-
-            //calculation of vector representing circulation matrix
+            //preparing input data
             Complex[] a, x;
-            a = new Complex[2 * n ];
-            x = new Complex[2 * n ];
+            a = new Complex[2 * vec.Length];
+            x = new Complex[2 * vec.Length];
 
             int idx = 0;
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < vec.Length; i++)
             {
                 a[idx] = matrix[i, 0];
                 idx++;
@@ -114,109 +26,84 @@ namespace ToeplitzMatrixMultiplication
             a[idx] = matrix[0, 0];
             idx++;
 
-            for (int i = n - 1; i > 0; i--)
+            for (int i = vec.Length - 1; i > 0; i--)
             {
                 a[idx] = matrix[0, i];
                 idx++;
             }
 
-            for (int i = 0; i < n; i++)
-            {
+            for (int i = 0; i < vec.Length; i++)
                 x[i] = vec[i];
-            }
 
+            // calculation starts
+            Complex[] _a = FFT(a);
+            Complex[] _x = FFT(x);
 
-            int N = x.Length;
+            Complex[] res = new Complex[x.Length];
+            for (int i = 0; i < x.Length; i++)
+                res[i] = _a[i].Times(_x[i]);
 
-            Complex[] _a = fft(a);
-            Complex[] b = fft(x);
-
-            Complex[] c = new Complex[N];
-            for (int i = 0; i < N; i++)
-            {
-                c[i] = _a[i].times(b[i]);
-            }
-
-            return ifft(c);
+            return InverseFFT(res);
         }
 
-        public static Complex[] fft(Complex[] x)
+        public static Complex[] FFT(Complex[] x)
         {
-            int N = x.Length;
-            if (N == 1) return new Complex[] { x[0] };
-            if (N % 2 != 0) { throw new Exception("N is not a power of 2"); }
-            Complex[] even = new Complex[N / 2];
-            for (int k = 0; k < N / 2; k++)
-            {
+            // validation
+            if (x.Length == 1)
+                return new Complex[] { x[0] };
+            if (x.Length % 2 != 0)
+                throw new Exception("Length of the input vector has to be a power of 2");
+
+            Complex[] even = new Complex[x.Length / 2];
+
+            for (int k = 0; k < x.Length / 2; k++)
                 even[k] = x[2 * k];
-            }
-            Complex[] q = fft(even);
 
+            Complex[] q = FFT(even);
             Complex[] odd = even;
-            for (int k = 0; k < N / 2; k++)
-            {
+
+            for (int k = 0; k < x.Length / 2; k++)
                 odd[k] = x[2 * k + 1];
-            }
-            Complex[] r = fft(odd);
+            Complex[] r = FFT(odd);
 
-            Complex[] y = new Complex[N];
-            for (int k = 0; k < N / 2; k++)
+            Complex[] y = new Complex[x.Length];
+            for (int k = 0; k < y.Length / 2; k++)
             {
-                double kth = -2 * k * Math.PI / N;
-                Complex wk = new Complex(Math.Cos(kth), Math.Sin(kth));
-                y[k] = q[k].plus(wk.times(r[k]));
-                y[k + N / 2] = q[k].minus(wk.times(r[k]));
+                double angle = -2 * k * Math.PI / y.Length;
+                Complex wk = new Complex(Math.Cos(angle), Math.Sin(angle));
+                y[k] = q[k] + wk.Times(r[k]);
+                y[k + y.Length / 2] = q[k] - wk.Times(r[k]);
             }
             return y;
         }
 
 
-        public static Complex[] ifft(Complex[] x)
+        public static Complex[] InverseFFT(Complex[] x)
         {
-            int N = x.Length;
-            Complex[] y = new Complex[N];
+            Complex[] y = new Complex[x.Length];
 
+            for (int i = 0; i < x.Length; i++)
+                y[i] = x[i].Conjugate();
 
-            for (int i = 0; i < N; i++)
-            {
-                y[i] = x[i].conjugate();
-            }
+            y = FFT(y);
 
-            y = fft(y);
-            for (int i = 0; i < N; i++)
-            {
-                y[i] = (y[i].conjugate()).times(1.0 / N);
-            }
+            for (int i = 0; i < y.Length; i++)
+                y[i] = (y[i].Conjugate()).Times(1.0 / y.Length);
 
             return y;
-
         }
 
-        public static Complex conjugate(this Complex x) { return new Complex(x.Real, -x.Imaginary); }
-        public static Complex times(this Complex x, double alpha)
+        public static Complex Conjugate(this Complex x) 
+        { 
+            return new Complex(x.Real, -x.Imaginary);
+        }
+        public static Complex Times(this Complex x, double alpha)
         {
             return new Complex(alpha * x.Real, alpha * x.Imaginary);
         }
 
-        public static Complex plus(this Complex x, Complex b)
+        public static Complex Times(this Complex a, Complex b)
         {
-            Complex a = x;
-            double real = a.Real + b.Real;
-            double imag = a.Imaginary + b.Imaginary;
-            return new Complex(real, imag);
-        }
-
-        public static Complex minus(this Complex x, Complex b)
-        {
-            Complex a = x;
-            double real = a.Real - b.Real;
-            double imag = a.Imaginary - b.Imaginary;
-            return new Complex(real, imag);
-        }
-
-        public static Complex times(this Complex x, Complex b)
-        {
-            Complex a = x;
             double real = a.Real * b.Real - a.Imaginary * b.Imaginary;
             double imag = a.Real * b.Imaginary + a.Imaginary * b.Real;
             return new Complex(real, imag);
