@@ -210,7 +210,7 @@ namespace ToeplitzMatrixMultiplication
                 {
 
                     StringBuilder sb = new StringBuilder(8);
-                    for (int i = 0; i < resultLength; i++)
+                    for (int i = 0; i < result.Length / 2; i++)
                     {
                         sb.Append(result[i].Real);
                         if (i != result.Length / 2 - 1)
