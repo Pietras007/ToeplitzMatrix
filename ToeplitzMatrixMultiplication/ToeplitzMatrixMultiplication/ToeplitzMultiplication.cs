@@ -4,8 +4,6 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using MathNet.Numerics.IntegralTransforms;
-using CenterSpace.NMath.Core;
 
 namespace ToeplitzMatrixMultiplication
 {
@@ -41,17 +39,17 @@ namespace ToeplitzMatrixMultiplication
 
             if(!onlyPowerOf2)
             {
-                var fft = new DoubleComplexForward1DFFT(a.Length);
-                var ra = new DoubleComplexVector(a.Length);
-                for (int i = 0; i < a.Length; i++)
-                    ra[i] = new DoubleComplex(a[i].Real, a[i].Imaginary);
-                var resa = fft.FFT(ra);
-                var rx = new DoubleComplexVector(x.Length);
-                for (int i = 0; i < x.Length; i++)
-                    rx[i] = new DoubleComplex(x[i].Real, x[i].Imaginary);
-                var resx = fft.FFT(rx);
-                for (int i = 0; i < x.Length; i++)
-                    res[i] = resa[i].Times(resx[i]);
+                //var fft = new DoubleComplexForward1DFFT(a.Length);
+                //var ra = new DoubleComplexVector(a.Length);
+                //for (int i = 0; i < a.Length; i++)
+                //    ra[i] = new DoubleComplex(a[i].Real, a[i].Imaginary);
+                //var resa = fft.FFT(ra);
+                //var rx = new DoubleComplexVector(x.Length);
+                //for (int i = 0; i < x.Length; i++)
+                //    rx[i] = new DoubleComplex(x[i].Real, x[i].Imaginary);
+                //var resx = fft.FFT(rx);
+                //for (int i = 0; i < x.Length; i++)
+                //    res[i] = resa[i].Times(resx[i]);
             }
             else
             {
@@ -105,14 +103,14 @@ namespace ToeplitzMatrixMultiplication
 
             if (!onlyPowerOf2)
             {
-                var fft = new DoubleComplexForward1DFFT(y.Length);
-                var ry = new DoubleComplexVector(y.Length);
-                for (int i = 0; i < y.Length; i++)
-                    ry[i] = new DoubleComplex(y[i].Real, y[i].Imaginary);
-                var resy = fft.FFT(ry);
+                //var fft = new DoubleComplexForward1DFFT(y.Length);
+                //var ry = new DoubleComplexVector(y.Length);
+                //for (int i = 0; i < y.Length; i++)
+                //    ry[i] = new DoubleComplex(y[i].Real, y[i].Imaginary);
+                //var resy = fft.FFT(ry);
 
-                for (int i = 0; i < y.Length; i++)
-                    y[i] = new Complex(resy[i].Real, resy[i].Imag);
+                //for (int i = 0; i < y.Length; i++)
+                //    y[i] = new Complex(resy[i].Real, resy[i].Imag);
             }
             else
                 y = FFT(y);
@@ -138,12 +136,12 @@ namespace ToeplitzMatrixMultiplication
             double imag = a.Real * b.Imaginary + a.Imaginary * b.Real;
             return new Complex(real, imag);
         }
-        public static Complex Times(this DoubleComplex a, DoubleComplex b)
-        {
-            double real = a.Real * b.Real - a.Imag * b.Imag;
-            double imag = a.Real * b.Imag + a.Imag * b.Real;
-            return new Complex(real, imag);
-        }
+        //public static Complex Times(this DoubleComplex a, DoubleComplex b)
+        //{
+        //    double real = a.Real * b.Real - a.Imag * b.Imag;
+        //    double imag = a.Real * b.Imag + a.Imag * b.Real;
+        //    return new Complex(real, imag);
+        //}
 
     }
 }
