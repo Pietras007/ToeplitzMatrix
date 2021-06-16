@@ -213,7 +213,7 @@ namespace ToeplitzMatrixMultiplication
                     for (int i = 0; i < resultLength; i++)
                     {
                         sb.Append(result[i].Real);
-                        if (i != result.Length / 2 - 1)
+                        if (i != resultLength - 1)
                         {
                             sb.Append(", ");
                         }
