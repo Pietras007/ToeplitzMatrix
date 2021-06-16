@@ -35,10 +35,49 @@ namespace ToeplitzMatrixMultiplication
                 x[i] = vec[i];
 
             // calculation starts
-            Complex[] res = new Complex[x.Length];
 
-            if(!onlyPowerOf2)
+
+            /*if (!onlyPowerOf2)
             {
+                Complex[] _a = FFT(GetVectorPow2(a));
+                Complex[] _x = FFT(GetVectorPow2(x));
+                //Complex[] _aa = InverseFFT(_a, true);
+                //Complex[] _xx = InverseFFT(_x, true);
+
+                //Complex[] _res_a = new Complex[a.Length];
+                //for (int i = 0; i < a.Length; i++)
+                //{
+                //    _res_a[i] = (a[i] - _aa[i]).Magnitude;
+                //}
+
+                //Complex[] _res_x = new Complex[a.Length];
+                //for (int i = 0; i < x.Length; i++)
+                //{
+                //    _res_x[i] = (x[i] - _xx[i]).Magnitude;
+                //}
+
+
+                //var dupa = 7;
+                Complex[] _r = new Complex[x.Length];
+                for (int i = 0; i < x.Length; i++)
+                    _r[i] = a[i].Times(x[i]);
+
+
+                Complex[] res = new Complex[_x.Length];
+                for (int i = 0; i < _x.Length; i++)
+                    res[i] = _a[i].Times(_x[i]);
+
+                var result = InverseFFT(res);
+
+                double[] _res_a = new double[a.Length];
+                for (int i = 0; i < a.Length; i++)
+                {
+                    _res_a[i] = (res[i] - result[i]).Magnitude;
+                }
+
+
+                return null;
+
                 //var fft = new DoubleComplexForward1DFFT(a.Length);
                 //var ra = new DoubleComplexVector(a.Length);
                 //for (int i = 0; i < a.Length; i++)
@@ -52,14 +91,34 @@ namespace ToeplitzMatrixMultiplication
                 //    res[i] = resa[i].Times(resx[i]);
             }
             else
-            {
+            {*/
+                Complex[] res = new Complex[x.Length];
                 Complex[] _a = FFT(a);
                 Complex[] _x = FFT(x);
                 for (int i = 0; i < x.Length; i++)
                     res[i] = _a[i].Times(_x[i]);
+
+                return InverseFFT(res);
+            /*}*/
+        }
+
+        public static Complex[] GetVectorPow2(Complex[] tab)
+        {
+            int len = tab.Length;
+            int x = 1;
+            while (x < len)
+            {
+                x *= 2;
             }
 
-            return InverseFFT(res, onlyPowerOf2);
+            Complex[] result = new Complex[x];
+
+            for (int i = 0; i < len; i++)
+            {
+                result[i] = tab[i];
+            }
+
+            return result;
         }
 
         public static Complex[] FFT(Complex[] x)
@@ -94,29 +153,20 @@ namespace ToeplitzMatrixMultiplication
         }
 
 
-        public static Complex[] InverseFFT(Complex[] x, bool onlyPowerOf2 = false)
+        public static Complex[] InverseFFT(Complex[] x)
         {
             Complex[] y = new Complex[x.Length];
 
             for (int i = 0; i < x.Length; i++)
-                y[i] = x[i].Conjugate();
-
-            if (!onlyPowerOf2)
             {
-                //var fft = new DoubleComplexForward1DFFT(y.Length);
-                //var ry = new DoubleComplexVector(y.Length);
-                //for (int i = 0; i < y.Length; i++)
-                //    ry[i] = new DoubleComplex(y[i].Real, y[i].Imaginary);
-                //var resy = fft.FFT(ry);
-
-                //for (int i = 0; i < y.Length; i++)
-                //    y[i] = new Complex(resy[i].Real, resy[i].Imag);
+                y[i] = x[i].Conjugate();
             }
-            else
-                y = FFT(y);
 
+            y = FFT(y);
             for (int i = 0; i < y.Length; i++)
+            {
                 y[i] = (y[i].Conjugate()).Times(1.0 / y.Length);
+            }
 
             return y;
         }
@@ -136,12 +186,5 @@ namespace ToeplitzMatrixMultiplication
             double imag = a.Real * b.Imaginary + a.Imaginary * b.Real;
             return new Complex(real, imag);
         }
-        //public static Complex Times(this DoubleComplex a, DoubleComplex b)
-        //{
-        //    double real = a.Real * b.Real - a.Imag * b.Imag;
-        //    double imag = a.Real * b.Imag + a.Imag * b.Real;
-        //    return new Complex(real, imag);
-        //}
-
     }
 }

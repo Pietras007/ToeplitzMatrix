@@ -27,6 +27,7 @@ namespace ToeplitzMatrixMultiplication
         private string fileName;
 
         private Complex[] result;
+        private int resultLength = -1;
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -48,12 +49,12 @@ namespace ToeplitzMatrixMultiplication
 
             try
             {
+                int len = -1;
                 using (StreamReader stream = new StreamReader(path))
                 {
                     string line;
                     bool start = true;
                     int idx = 0;
-                    int len = -1;
                     while ((line = stream.ReadLine()) != null)
                     {
                         if (start)
@@ -92,10 +93,10 @@ namespace ToeplitzMatrixMultiplication
                 }
 
                 MessageBox.Show("Successfully loaded");
-                float[] a = new float[2 * toeplitzVector.Length];
+                float[] a = new float[2 * len];
 
                 int indx = 0;
-                for (int i = 0; i < toeplitzVector.Length; i++)
+                for (int i = 0; i < len; i++)
                 {
                     a[indx] = toeplitzMatriz[i, 0];
                     indx++;
@@ -103,7 +104,7 @@ namespace ToeplitzMatrixMultiplication
                 a[indx] = toeplitzMatriz[0, 0];
                 indx++;
 
-                for (int i = toeplitzVector.Length - 1; i > 0; i--)
+                for (int i = len - 1; i > 0; i--)
                 {
                     a[indx] = toeplitzMatriz[0, i];
                     indx++;
@@ -120,8 +121,27 @@ namespace ToeplitzMatrixMultiplication
                 }
 
                 var naiveResult = MultiplyMatrixAndVector(toeplitzMatriz, toeplitzVector);
-                result = ToeplitzMultiplication.Compute(toeplitzMatriz, toeplitzVector);
-                for (int i = 0; i < result.Length / 2; i++)
+
+                int newlen = 1;
+                while (newlen < len)
+                {
+                    newlen *= 2;
+                }
+                var newtoeplitzVector = new float[newlen];
+                var newtoeplitzMatriz = new float[newlen, newlen];
+                for (int i=0;i<len;i++)
+                {
+                    newtoeplitzVector[i] = toeplitzVector[i];
+                    for (int j=0;j<len;j++)
+                    {
+                        newtoeplitzMatriz[i,j] = toeplitzMatriz[i,j];
+                    }
+                }
+
+
+                result = ToeplitzMultiplication.Compute(newtoeplitzMatriz, newtoeplitzVector);
+                resultLength = len;
+                for (int i = 0; i < len; i++)
                 {
                     listView3.Items.Add(result[i].Real.ToString());
                 }

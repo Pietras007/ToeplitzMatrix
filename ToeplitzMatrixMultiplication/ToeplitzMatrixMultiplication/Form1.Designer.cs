@@ -72,9 +72,9 @@ namespace ToeplitzMatrixMultiplication
             // listView1
             // 
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(229, 50);
+            this.listView1.Location = new System.Drawing.Point(190, 50);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(48, 626);
+            this.listView1.Size = new System.Drawing.Size(121, 626);
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.List;
@@ -104,7 +104,7 @@ namespace ToeplitzMatrixMultiplication
             this.listView2.HideSelection = false;
             this.listView2.Location = new System.Drawing.Point(374, 50);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(51, 626);
+            this.listView2.Size = new System.Drawing.Size(126, 626);
             this.listView2.TabIndex = 7;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.List;
@@ -112,7 +112,7 @@ namespace ToeplitzMatrixMultiplication
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(360, 34);
+            this.label2.Location = new System.Drawing.Point(396, 34);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 13);
             this.label2.TabIndex = 6;
@@ -121,9 +121,9 @@ namespace ToeplitzMatrixMultiplication
             // listView3
             // 
             this.listView3.HideSelection = false;
-            this.listView3.Location = new System.Drawing.Point(476, 50);
+            this.listView3.Location = new System.Drawing.Point(551, 50);
             this.listView3.Name = "listView3";
-            this.listView3.Size = new System.Drawing.Size(69, 626);
+            this.listView3.Size = new System.Drawing.Size(168, 626);
             this.listView3.TabIndex = 9;
             this.listView3.UseCompatibleStateImageBehavior = false;
             this.listView3.View = System.Windows.Forms.View.List;
@@ -131,7 +131,7 @@ namespace ToeplitzMatrixMultiplication
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(474, 34);
+            this.label3.Location = new System.Drawing.Point(602, 34);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 13);
             this.label3.TabIndex = 8;
